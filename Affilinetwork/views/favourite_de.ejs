@@ -1,0 +1,53 @@
+<!-- page-intro start-->
+<!-- ================ -->
+<div class="page-intro">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><i class="fa fa-home pr-10"></i><a href="/">Home</a></li>
+					<li class="active">Merkliste</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- page-intro end -->
+<!-- main-container end -->
+<div class="container-fluid">
+	<h2>Merkliste</h2>
+	<br>
+</div>
+<!-- section start -->
+<!-- ================ -->
+<div class="gray-bg section">
+	<div class="container-fluid">
+		<div class="row grid-space-20">
+			<% products.forEach(function(product) { %>
+			<div class="col-md-4">
+				<div class="box-style-1 white-bg object-non-visible" data-animation-effect="fadeInLeft" data-effect-delay="300">
+					<div class="overlay-container">
+						<img src="<%= product.ProductImage %>" alt="">
+						<div class="overlay">
+							<div class="overlay-links">
+								<a href="/de/product?product_id=<%= product.ProductId %>"><i class="fa fa-search-plus"></i></a>
+								<a href="/de/favourite/remove?ean=<%= product._id %>"><i class="fa fa-trash"></i></a>
+							</div>
+						</div>
+					</div>
+					<h3><a href="/de/product?product_id=<%= product.ProductId %>"><%= product.Title[0] %></a></h3>
+					<p>
+						<% if (product.Price.length == 1 || Math.min.apply(null, product.Price) == Math.max.apply(null, product.Price)) { %>
+	                    <span class="price" style="font-size: 20px"><%= product.Price[0].toString().replace(".", ",") %> €</span>
+	                    <% } else { %>
+	                    <span class="price" style="font-size: 20px"><%= Math.min.apply(null,product.Price).toString().replace(".", ",") %> - <%= Math.max.apply(null,product.Price).toString().replace(".", ",") %> €</span>
+	                    <% } %>
+                    </p>
+					<a href="/de/product?product_id=<%= product.ProductId %>" class="btn btn-default">Mehr</a>
+				</div>
+			</div>
+			<% }) %>
+		</div>
+	</div>
+</div>
+<!-- section end -->

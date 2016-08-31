@@ -1,0 +1,168 @@
+<div class="page-header">
+    <h1><%= title %></h1>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" id="product_form">
+            <div class="form-group">
+                <label for="Source">Source</label>
+                <input type="text" class="form-control" id="Source" name="Source" value="<%= product.Source || "Manual" %>" placeholder="Source" readonly>
+            </div>
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" class="form-control" id="Title" name="Title" value="<%= product.Title || '' %>" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <label for="TitleCN">中文名称</label>
+                <input type="text" name="TitleCN" value="<%= product.TitleCN || '' %>" class="form-control" placeholder="中文名称" id="TitleCN">
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <textarea rows="5" class="form-control" id="Description" name="Description" placeholder="Description"><%= product.Description || '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="ShopName">ShopName</label>
+                <input type="text" class="form-control" id="ShopName" name="ShopName" value="<%= product.ShopName || '' %>" placeholder="ShopName">
+            </div>
+            <div class="form-group">
+                <label for="DescriptionCN">中文详细</label>
+                <div id="summernote"><%- product.DescriptionCN %></div>
+            </div>
+            <div class="form-group">
+                <label for="Category">Category</label>
+                <select name="Category">
+                    <option <% if(product.Category=='null') { %> selected='selected' <% } %> >null</option>
+                    <option <% if(product.Category=='服装鞋子') { %> selected='selected' <% } %>>服装鞋子</option>
+                    <option <% if(product.Category=='食品饮食') { %> selected='selected' <% } %>>食品饮食</option>
+                    <option <% if(product.Category=='厨房用具') { %> selected='selected' <% } %>>厨房用具</option>
+                    <option <% if(product.Category=='电子产品') { %> selected='selected' <% } %>>电子产品</option>
+                    <option <% if(product.Category=='母婴') { %> selected='selected' <% } %>>母婴</option>
+                    <option <% if(product.Category=='化妆品') { %> selected='selected' <% } %>>化妆品</option>
+                    <option <% if(product.Category=='健康保健') { %> selected='selected' <% } %> >健康保健</option>
+                    <option <% if(product.Category=='运动旅行') { %> selected='selected' <% } %> >运动旅行</option>
+                    <option <% if(product.Category=='居家用品') { %> selected='selected' <% } %> >居家用品</option>
+                    <option <% if(product.Category=='钟表手饰') { %> selected='selected' <% } %> >钟表手饰</option>
+                    <option <% if(product.Category=='办公') { %> selected='selected' <% } %> >办公</option>
+                    <option <% if(product.Category=='打折券') { %> selected='selected' <% } %> >打折券</option>
+                    <option <% if(product.Category=='其他') { %> selected='selected' <% } %> >其他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input type="text" class="form-control" id="Price" name="Price" value="<%= product.Price || '' %>" placeholder="Price">
+            </div>
+            <div class="form-group">
+                <label for="PriceCurrency">PriceCurrency</label>
+                <input type="text" class="form-control" id="PriceCurrency" name="PriceCurrency" value="<%= product.PriceCurrency || '' %>" placeholder="PriceCurrency">
+            </div>
+            <div class="form-group">
+                <label for="DeliveryTime">DeliveryTime</label>
+                <input type="text" class="form-control" id="DeliveryTime" name="DeliveryTime" value="<%= product.DeliveryTime || '' %>" placeholder="DeliveryTime">
+            </div>
+            <div class="form-group">
+                <label for="URL">URL</label>
+                <input type="text" class="form-control" id="URL" name="URL" value="<%= product.URL || '' %>" placeholder="URL">
+            </div>
+            <div class="form-group">
+                <label for="SalesRank">SalesRank</label>
+                <input type="text" class="form-control" id="SalesRank" name="SalesRank" value="<%= product.SalesRank || '' %>" placeholder="SalesRank">
+            </div>
+            <div class="form-group">
+                <label for="EAN">EAN</label>
+                <input type="text" class="form-control" id="EAN" name="EAN" value="" placeholder="EAN">
+            </div>
+            <div class="form-group">
+                <label for="ProductId">ProductId (Affilinet Identification Number)</label>
+                <input type="text" class="form-control" id="ProductId" name="ProductId" value="<%= product.ProductId || '' %>" placeholder="ProductId" readonly>
+            </div>
+            <div class="form-group">
+                <label for="ASIN">ASIN (Amazon Standard Identification Number)</label>
+                <input type="text" class="form-control" id="ASIN" name="ASIN" value="<%= product.ASIN || '' %>" placeholder="ASIN" readonly>
+            </div>
+            <div class="form-group">
+                <label for="Brand">Brand</label>
+                <input type="text" class="form-control" id="Brand" name="Brand" value="<%= product.Brand.charAt(0).toUpperCase() + product.Brand.slice(1) || '' %>" placeholder="Brand">
+            </div>
+            <div class="form-group">
+                <label for="Manufactor">Manufactor</label>
+                <input type="text" class="form-control" id="Manufactor" name="Manufactor" value="<%= product.Manufactor || '' %>" placeholder="Manufactor">
+            </div>
+            <div class="form-group">
+                <label for="Keywords">Keywords</label>
+                <input type="text" class="form-control" id="Keywords" name="Keywords" value="<%= product.Keywords || '' %>" placeholder="Keywords">
+            </div>
+            <div class="form-group">
+                <label for="Weight">Weight</label>
+                <input type="text" class="form-control" id="Weight" name="Weight" value="<%= product.Weight || '' %>" placeholder="Weight">
+            </div>
+            <div class="form-group form-inline">
+                <label for="Length">ItemDimensions</label>
+                <input type="text" class="form-control" id="Length" name="ItemDimensions_Length" value="<%= (product.ItemDimensions !== undefined && product.ItemDimensions !== null) ? product.ItemDimensions.Length || '' : '' %>" placeholder="Length">
+                <input type="text" class="form-control" id="Width" name="ItemDimensions_Width" value="<%= (product.ItemDimensions !== undefined && product.ItemDimensions !== null) ? product.ItemDimensions.Width || '' : '' %>" placeholder="Width">
+                <input type="text" class="form-control" id="Height" name="ItemDimensions_Height" value="<%= (product.ItemDimensions !== undefined && product.ItemDimensions !== null) ? product.ItemDimensions.Height || '' : '' %>" placeholder="Height">
+                <input type="text" class="form-control" id="Weight" name="ItemDimensions_Weight" value="<%= (product.ItemDimensions !== undefined && product.ItemDimensions !== null) ? product.ItemDimensions.Weight || '' : '' %>" placeholder="Weight">
+            </div>
+            <div class="form-group form-inline">
+                <label for="Length">PackageDimensions</label>
+                <input type="text" class="form-control" id="Length" name="PackageDimensions_Length" value="<%= (product.PackageDimensions !== undefined && product.PackageDimensions !== null) ? product.PackageDimensions.Length || '' : '' %>" placeholder="Length">
+                <input type="text" class="form-control" id="Width" name="PackageDimensions_Width" value="<%= (product.PackageDimensions !== undefined && product.PackageDimensions !== null) ? product.PackageDimensions.Width || '' : '' %>" placeholder="Width">
+                <input type="text" class="form-control" id="Height" name="PackageDimensions_Height" value="<%= (product.PackageDimensions !== undefined && product.PackageDimensions !== null) ? product.PackageDimensions.Height || '' : '' %>" placeholder="Height">
+                <input type="text" class="form-control" id="Weight" name="PackageDimensions_Weight" value="<%= (product.PackageDimensions !== undefined && product.PackageDimensions !== null) ? product.PackageDimensions.Weight || '' : '' %>" placeholder="Weight">
+            </div>
+            <div class="form-group">
+                <label for="ProductImage">ProductImage</label>
+                <input type="text" class="form-control" id="ProductImage" name="ProductImage" value="<%= product.ProductImage || '' %>" placeholder="ProductImage">
+            </div>
+            <div class="form-group">
+                <label for="ProductImageSet">ProductImageSet</label>
+                <textarea rows="5" class="form-control" id="ProductImageSet" name="ProductImageSet" placeholder="ProductImageSet"><%= JSON.stringify(product.ProductImageSet) || '' %></textarea>
+            </div>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> <%= title %></button>
+        </form>
+        <hr/>
+        <% if (product.ProductImage !== "" && product.ProductImage !== undefined) { %>
+        <label>Product Image</label>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src="<%= product.ProductImage %>" alt="prduct image set">
+                </a>
+            </div>
+        </div>
+        <% } %>
+        <% if (product.ProductImageSet !== "" && product.ProductImageSet !== undefined) { %>
+        <label>Product Image Set</label>
+        <div class="row">
+            <% product.ProductImageSet.forEach(function(image) { %>
+            <div class="col-xs-4 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src="<%= image %>" alt="prduct image">
+                </a>
+            </div>
+            <% }); %>
+        </div>
+        <% } %>
+    </div>
+</div>
+<script>
+    $("#product_page").addClass("active");
+    $(document).ready(function(){
+        var _ean = "<%= product.EAN %>";
+        _ean = _ean.substr(_ean.length - 13);
+        $("#EAN").val(_ean);
+
+        $('#summernote').summernote({
+            height: 500,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+        });
+
+        $('#product_form').submit(function(event) {
+            var data = {
+                DescriptionCN: $('#summernote').summernote('code')
+            };
+            post(data, "product_form");
+        });
+    });
+
+</script>

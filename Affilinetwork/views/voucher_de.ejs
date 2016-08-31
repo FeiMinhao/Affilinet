@@ -1,0 +1,160 @@
+<!-- page-intro start-->
+<!-- ================ -->
+<div class="page-intro">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><i class="fa fa-home pr-10"></i><a href="/de/">Home</a></li>
+					<li class="active">Coupon</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="gutscheinModal" tabindex="2" role="dialog" aria-labelledby="gutscheinModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="gutscheinModalLabel">Gutschein Anzeigen</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<a class="btn btn-primary btn-lg btn-hvr hvr-bounce-to-bottom gutscheinButton">Gutschein Anzeigen</a>
+						<div class="form-group gutschein">
+							<div class="input-group">
+								<input class="form-control gutschein-text" type="text" value="">
+								<div class="input-group-addon gutschein-copy">Kopieren</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<br/>
+				<p id="gutschein-content"></p>
+				<hr/>
+				<a id="gutscheinGo" class='btn btn-info' target='_class'>Go</a>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Schließen</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- main-container start -->
+<!-- ================ -->
+<section class="main-container">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- main start -->
+			<!-- ================ -->
+			<div class="main col-md-12">
+				<!-- page-title start -->
+				<!-- ================ -->
+				<h1 class="page-title">Coupon</h1>
+				<div class="separator-2"></div>
+				<p class="lead">Hier sind die Information über Gutschein und Coupon <br class="hidden-sm hidden-xs"></p>
+				<!-- page-title end -->
+				<!-- blogpost start -->
+				<% vouchers.forEach(function(voucher) { %>
+				<article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200">
+					<div class="overlay-container">
+						<img src="<%- voucher.Image %>" alt="">
+						<div class="overlay">
+							<div class="overlay-links">
+								<a href="<%- voucher.Image %>" class="popup-img-single"><i class="fa fa-search-plus"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="blogpost-body">
+						<div class="post-info">
+							<span class="day"><%= voucher.updated_at.getDate() %></span>
+							<span class="month"><%= voucher.updated_at.getMonth() + 1 %> <%= voucher.updated_at.getFullYear() %></span>
+						</div>
+						<div class="blogpost-content">
+							<header>
+								<h2 class="title"><%= voucher.Title %></h2>
+								<div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">Empfehlung von Allhaha</a></div>
+							</header>
+							<h3 id="voucherDesc"><%= voucher.Description %></h3>
+							<hr/>
+							<div class="LinkContainer" style="visibility: hidden; height: 0px; width:0px;"><%- voucher.IntegrationCode %></div>
+							<% if (voucher.Code !== "" ) { %>
+							<a class='btn btn-info seegutschein' data-toggle="modal" data-target="#gutscheinModal" onclick="openModal('<%= voucher.Code %>', this)">Gutschein</a>
+							<% } else { %>
+							<a class='btn btn-info nogutschein' target='_class'>Link</a>
+							<% } %>
+						</div>
+					</div>
+					<footer class="clearfix" onmouseover="setShare('<%= voucher.TitleCN %>', '<%= voucher.DescriptionCN %>');">
+						<ul class="links pull-right">
+							<!-- JiaThis Button BEGIN -->
+							<div class="jiathis_style_32x32">
+								<a class="jiathis_button_tsina"></a>
+								<a class="jiathis_button_weixin"></a>
+								<a class="jiathis_button_renren"></a>
+								<a class="jiathis_button_email"></a>
+								<a class="jiathis_button_tqq"></a>
+								<a class="jiathis_button_qzone"></a>
+							</div>
+						</ul>
+					</footer>
+				</article>
+				<% }) %>
+				<!-- blogpost end -->
+			</div>
+			<!-- main end -->
+		</div>
+	</div>
+</section>
+<!-- main-container end -->
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var jiathis_config={
+		data_track_clickback:true,
+		hideMore:false
+	}
+	function setShare(title, summary) {
+        jiathis_config.title = title;
+        jiathis_config.summary = summary;
+    }
+	var openFlag = true;
+	$(document).ready(function() {
+		$(".gutschein-copy").click(function() {
+			copyToClipboard($(".gutschein-text").val());
+			Notify('success', "Kopiert!");
+		});
+
+		$.each($(".LinkContainer"), function(index) {
+			var link = $(this).find("a").attr("href");
+			$(this).siblings("a.nogutschein").attr("href", link);
+			$(this).siblings("a.seegutschein").attr("link", link);
+		});
+
+		$(".gutscheinButton").click(function(){
+			if (openFlag) {
+				$(".gutschein").animate({top: "+="+ 40 }, 100);
+				openFlag = false;
+			} else {
+				$(".gutschein").animate({top: "-="+ 40}, 100);
+				openFlag = true;
+			}
+		});
+	});
+
+	function openModal(voucherCode, that) {
+		openFlag = true;
+		$(".gutschein-text").val(voucherCode);
+		$("#gutschein-content").text($(that).siblings("h3#voucherDesc").text());
+		$("#gutscheinGo").attr("href", $(that).attr("link"));
+		$(".gutschein").css({
+			"left": "10%",
+			"top": 30,
+			"width": "80%"
+		});
+	}
+</script>

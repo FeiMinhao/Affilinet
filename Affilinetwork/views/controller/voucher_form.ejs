@@ -1,0 +1,100 @@
+<div class="page-header">
+    <h1><%= title %></h1>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" id="voucher_form">
+            <div class="form-group">
+                <label for="Id">Id</label>
+                <input type="text" class="form-control" id="Id" name="Id" value="<%= voucher.Id || Math.round(Math.random()*100000000) %>" placeholder="Id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="ProgramId">ProgramId</label>
+                <input type="text" class="form-control" id="ProgramId" name="ProgramId" value="<%= voucher.ProgramId || '-1' %>" placeholder="ProgramId">
+            </div>
+            <div class="form-group">
+                <label for="Program">Program</label>
+                <input type="text" class="form-control" id="Program" name="Program" value="<%= voucher.Program || '' %>" placeholder="Program">
+            </div>
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" class="form-control" id="Title" name="Title" value="<%= voucher.Program || '' %>" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <label for="TitleCN">TitleCN</label>
+                <input type="text" class="form-control" id="TitleCN" name="TitleCN" value="<%= voucher.TitleCN || '' %>" placeholder="TitleCN">
+            </div>
+            <div class="form-group">
+                <label for="Code">Code</label>
+                <input type="text" class="form-control" id="Code" name="Code" value="<%= voucher.Code || '' %>" placeholder="Code">
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <textarea rows="5" class="form-control" id="Description" name="Description" placeholder="Description"><%= voucher.Description || '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="DescriptionCN">中文详细</label>
+                <textarea rows="5" class="form-control" id="DescriptionCN" name="DescriptionCN" placeholder="中文详细"><%= voucher.DescriptionCN || '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="ActivePartnership">ActivePartnership</label>
+                <input type="text" class="form-control" id="ActivePartnership" name="ActivePartnership" value="<%= voucher.ActivePartnership || '' %>" placeholder="ActivePartnership">
+            </div>
+            <div class="form-group">
+                <label for="IsRestricted">IsRestricted</label>
+                <input type="text" class="form-control" id="IsRestricted" name="IsRestricted" value="<%= voucher.IsRestricted || '' %>" placeholder="IsRestricted">
+            </div>
+            <div class="form-group">
+                <label for="StartDate">StartDate</label>
+                <input type="text" class="form-control" id="StartDate" name="StartDate" value="<%= voucher.StartDate || new Date() %>" placeholder="StartDate">
+            </div>
+            <div class="form-group">
+                <label for="EndDate">EndDate</label>
+                <input type="text" class="form-control" id="EndDate" name="EndDate" value="<%= voucher.EndDate || new Date() %>" placeholder="EndDate">
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" id="image" onchange="previewFile('#image', '#image_preview')"/>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <a href="#" class="thumbnail" id="image_preview" hidden></a>
+                    </div>
+                </div>
+            </div>
+            <% if (voucher.IntegrationCode !== "" && voucher.IntegrationCode !== undefined) { %>
+            <div class="form-group">
+                <label for="IntegrationCode">IntegrationCode</label>
+                <div id="IntegrationCode" style="min-height: 100px; border: 1px solid #D8D8D8;"><%- voucher.IntegrationCode %></div>
+                <input type="hidden" class="form-control" id="IntegrationCode" name="IntegrationCode" value="<%= voucher.IntegrationCode || '' %>" placeholder="IntegrationCode">
+            </div>
+            <% } %>
+            <hr/>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> <%= title %></button>
+        </form>
+        <% if (voucher.Image !== "" && voucher.Image !== undefined) { %>
+        <hr/>
+        <label>Image</label>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src=<%- voucher.Image %> alt="prduct image set">
+                </a>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
+<script>
+    var _image = "";
+    $(document).ready(function() {
+        $("#voucher_page").addClass("active");
+
+        $('#voucher_form').submit(function(event) {
+            var data = {
+                //IntegrationCodeCN: fullEditor.getHTML(),
+                Image: JSON.stringify(_image)
+            };
+            post(data, "voucher_form");
+        });
+    });
+</script>

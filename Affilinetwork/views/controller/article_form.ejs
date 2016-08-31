@@ -1,0 +1,68 @@
+<div class="page-header">
+	<h1><%= title %></h1>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<form method="post" id="article_form">
+			<div class="form-group">
+				<label for="Title">Title</label>
+				<input type="text" class="form-control" id="Title" placeholder="Title" name="Title" value="<%= article.Title || '' %>">
+			</div>
+			<div class="form-group">
+                <label>Image</label>
+                <input type="file" id="image" onchange="previewFile('#image', '#image_preview')"/>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <a href="#" class="thumbnail" id="image_preview" hidden></a>
+                    </div>
+                </div>
+            </div>
+			<div id="summernote"><%- article.Content %></div>
+			<hr/>
+			<button type="submit" id="post_button" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> Post</button>
+			<a id="preview_button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> Preview</a>
+		</form>
+		
+	</div>
+	<div class="col-md-6">
+		<h3>Preview</h3>
+		<% if (article.Image !== "" && article.Image !== undefined) { %>
+        <label>Image</label>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src=<%- article.Image %> alt="prduct image set">
+                </a>
+            </div>
+        </div>
+        <% } %>
+		<div id="preview_block"></div>
+	</div>
+</div>
+<hr/>
+<script>
+	var _image = "";
+	$(document).ready(function() {
+		$("#article_page").addClass("active");
+
+		$('#article_form').submit(function(event) {
+
+			var data = {
+				Content_pre: $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, ""),
+				Content: $('#summernote').summernote('code'),
+				Image: JSON.stringify(_image)
+			};
+			post(data, "article_form");
+		});
+
+		$("#preview_button").click(function() {
+			$("#preview_block").html($('#summernote').summernote('code'));
+		});
+
+		$('#summernote').summernote({
+			height: 500,                 // set editor height
+			minHeight: null,             // set minimum height of editor
+			maxHeight: null,             // set maximum height of editor
+		});
+	});
+</script>
